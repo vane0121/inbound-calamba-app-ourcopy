@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import theme from "../../../Theme/Theme";
+import BarCode from "../../BarCode/Barcode";
 
 export default function Shipment() {
   return (
@@ -89,14 +90,7 @@ export default function Shipment() {
             >
                 <strong>DC Calamba</strong>
             </Typography>
-            <Typography
-                sx={{
-                    color: theme.palette.primary.main,
-                    fontWeight: theme.typography.fontWeightRegular,
-                }}
-            >
-                <strong>IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</strong>
-            </Typography>
+            <BarCode codeValue="878979798789" width={2} height={15} showDigits={false}/>
 
         </Box>
 

@@ -3,8 +3,8 @@ import LockOpenIcon from "@mui/icons-material/LockOpen";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import theme from '../../../Theme/Theme';
 import { useState } from 'react';
-import Submition from '../Submit/Submit';
-import Submittion from '../Submit/Submit';
+import Submition from '../SubmitPanel/SubmitPanel';
+import Submittion from '../SubmitPanel/SubmitPanel';
 import ExpPallet from '../ExpPallett/ExpPallet';
 import CaseTable from '../CaseTable/CaseTable';
 import Shipment from '../Shipment/Shipment';
@@ -12,7 +12,9 @@ import Catalogue from '../Catalogue/Catalogue';
 import Footprint from '../FootPrint/FootPrint';
 import Expiration from '../ExpPanel/ExpPanel';
 import ExpPanel from '../ExpPanel/ExpPanel';
-import Submit from '../Submit/Submit';
+import SubmitPanel from '../SubmitPanel/SubmitPanel';
+import Barcode from 'react-barcode';
+import BarCode from '../../BarCode/Barcode';
 
 type Props = {}
 
@@ -160,7 +162,7 @@ export default function SkuPanel({}: Props) {
                 }
                 {
                     collapse ?
-                    <>
+                    <Box sx={{width:'40%', border:'solid 1px violet'}}>
                         <Box display="flex" justifyContent="space-between">
                             <Typography
                                 sx={{
@@ -180,76 +182,76 @@ export default function SkuPanel({}: Props) {
                                 <strong>SMART SHOPPER</strong>
                             </Typography>
                         </Box>
-                    </>
+                    </Box>
                     :
                     <Box
-                    sx={{
-                        // width: { xs: "100%", sm: "100%", md: "25%", xl: "25%" },
-                        padding: 2,
-                        width: `${collapse ? '100%': '30%'}`,
-                        border:'solid 1px red'
-                    }}
-                >
-                    <Box mt={1}>
-                        <Box display="flex" justifyContent="space-between">
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.secondary,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>SKU Description</strong>
-                            </Typography>
+                        sx={{
+                            // width: { xs: "100%", sm: "100%", md: "25%", xl: "25%" },
+                            padding: 2,
+                            width: `${collapse ? '100%': '30%'}`,
+                            border:'solid 1px red'
+                        }}
+                        >
+                            <Box mt={1}>
+                                <Box display="flex" justifyContent="space-between">
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.secondary,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>SKU Description</strong>
+                                    </Typography>
 
-                            <Typography
-                                sx={{
-                                    color: theme.palette.primary.main,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>SMART SHOPPER</strong>
-                            </Typography>
-                        </Box>
-                        <Box display="flex" justifyContent="space-between">
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.secondary,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>UPC:</strong>
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.primary.main,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>4806506156502</strong>
-                            </Typography>
-                        </Box>
-                        <Box display="flex" justifyContent="space-between">
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.secondary,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>Vendor:</strong>
-                            </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>SMART SHOPPER</strong>
+                                    </Typography>
+                                </Box>
+                                <Box display="flex" justifyContent="space-between">
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.secondary,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>UPC:</strong>
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>4806506156502</strong>
+                                    </Typography>
+                                </Box>
+                                <Box display="flex" justifyContent="space-between">
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.text.secondary,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>Vendor:</strong>
+                                    </Typography>
 
-                            <Typography
-                                sx={{
-                                    color: theme.palette.primary.main,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                }}
-                            >
-                                <strong>1068</strong>
-                            </Typography>
-                        </Box>
+                                    <Typography
+                                        sx={{
+                                            color: theme.palette.primary.main,
+                                            fontWeight: theme.typography.fontWeightRegular,
+                                        }}
+                                    >
+                                        <strong>1068</strong>
+                                    </Typography>
+                                </Box>
 
+                            </Box>
                     </Box>
-                </Box>
                 }
               
                 <Box
@@ -279,21 +281,14 @@ export default function SkuPanel({}: Props) {
                         </Typography>
                         :
                         <Box sx={{width:'100%',height:'80px'}}>
-                            <Typography
-                                sx={{
-                                    color: theme.palette.text.secondary,
-                                    fontWeight: theme.typography.fontWeightRegular,
-                                    border: 'solid 1px red',
-                                    height:'100%'
-                                }}
-                            >I
-                                <strong>IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII</strong>
-                            </Typography>
+                            <BarCode 
+                                codeValue="1234567890"
+                                width={2}   
+                                height={50} 
+                                showDigits={false}
+                            />
                         </Box>
                     }
-                    
-
-                    
                 </Box>
             </Box>
 
@@ -310,7 +305,7 @@ export default function SkuPanel({}: Props) {
         </Stack>
 
         {
-            !collapse && <Submit/>
+            !collapse && <SubmitPanel/>
         }
         
     </Stack>

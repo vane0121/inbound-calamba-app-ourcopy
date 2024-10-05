@@ -28,7 +28,7 @@ import SkuPanel from "../../Components/SupPanel/SkuPanel/SkuPanel";
 import Footprint from "../../Components/SupPanel/FootPrint/FootPrint";
 import Expiration from "../../Components/SupPanel/ExpPanel/ExpPanel";
 import ExpPallet from "../../Components/SupPanel/ExpPallett/ExpPallet";
-import Submition from "../../Components/SupPanel/Submit/Submit";
+import Submition from "../../Components/SupPanel/SubmitPanel/SubmitPanel";
 import Shipment from "../../Components/SupPanel/Shipment/Shipment";
 import Catalogue from "../../Components/SupPanel/Catalogue/Catalogue";
 import ExpPanel from "../../Components/SupPanel/ExpPanel/ExpPanel";
