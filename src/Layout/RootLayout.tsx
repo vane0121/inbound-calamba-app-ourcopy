@@ -22,7 +22,7 @@ export default function RootLayout() {
 
   return (
     <>
-      {IsLoggedIn() ? <Header /> : <Login />}
+      {!IsLoggedIn() ? <Header /> : <Login />}
 
       <Notice
         ErrorMessage={message}

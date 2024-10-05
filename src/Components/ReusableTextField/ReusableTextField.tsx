@@ -46,7 +46,7 @@ const ReusableTextField = <T extends FieldValues>({
         value={value}
         onChange={onChange}
         onClick={isColorPicker ? () => setOpenColorPicker(true) : undefined}
-        sx={{ mb: 2 }}
+        // sx={{ mb: 2 }}
         InputProps={{
           sx: {
             borderRadius: borderRadius,
