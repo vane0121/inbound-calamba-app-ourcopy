@@ -4,9 +4,15 @@ import { PhotoCamera } from '@mui/icons-material'
 import GalleriesLogo from "../../../assets/GalleriesIcon.png";
 
 
-type Props = {}
+export interface ICatalogue {
+    disabledOpen: boolean
+    openShipment: ()=> void
+    openGallery?: ()=> void
+}
 
-export default function Catalogue({}: Props) {
+export default function Catalogue({disabledOpen, openShipment, openGallery}: ICatalogue) {
+
+    const readytoOpenLabel = disabledOpen ? "Opened" : "Ready to Open"
   return (
     <Box
         display="flex"
@@ -112,6 +118,8 @@ export default function Catalogue({}: Props) {
             }}
         >
             <Button
+                disabled={disabledOpen}
+                onClick={openShipment}
                 variant="contained"
                 sx={{
                     textTransform: "none",
@@ -121,13 +129,12 @@ export default function Catalogue({}: Props) {
                     alignItems: "center",
                     fontSize: { xs: "16px", sm: "20px", md: "20px" },
                     boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                    backgroundColor: "gray",
                     color: "white",
                     width: { xs: "100%", sm: "100%", md: "50%", xl: "50%" },
                     mx: "auto",
                 }}
             >
-                Opened
+                { readytoOpenLabel }
             </Button>
             <Box display="flex" justifyContent="center" mt={1} gap={2}>
                 <Button

@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import theme from "../../../Theme/Theme";
 import BarCode from "../../BarCode/Barcode";
+import TimeClock from "../../TimeClock/TimeClock";
 
 export default function Shipment() {
   return (
@@ -105,7 +106,7 @@ export default function Shipment() {
             <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "column", md: "column" }}
-                justifyContent="center"
+                justifyContent="flex-start"
                 alignItems="center"
             >
                 <Typography
@@ -117,15 +118,20 @@ export default function Shipment() {
                 >
                     <strong>Date: 09/04/2024</strong>
                 </Typography>
-                <Typography
-                    sx={{
-                        color: theme.palette.text.secondary,
-                        fontWeight: theme.typography.fontWeightRegular,
-                        width: "100%",
-                    }}
+                <Box display={'flex'} flexDirection={'row'}
+                    sx={{border:'solid px red'}}
                 >
-                    <strong>Time: 10:19:12 AM</strong>
-                </Typography>
+                    <Typography
+                        sx={{
+                            color: theme.palette.text.secondary,
+                            fontWeight: theme.typography.fontWeightRegular,
+                            width: "100%",
+                        }}
+                    >
+                        <strong>Time:</strong>
+                    </Typography>
+                    <TimeClock/>
+                </Box>
                 <Typography
                     sx={{
                         color: theme.palette.text.secondary,

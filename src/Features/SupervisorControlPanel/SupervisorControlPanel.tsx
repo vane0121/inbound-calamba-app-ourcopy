@@ -4,34 +4,21 @@ import {
     Box,
     Button,
     IconButton,
-    Paper,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
+    Stack,
     Typography,
 } from "@mui/material";
 import theme from "../../Theme/Theme";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import ReusableTextField from "../../Components/ReusableTextField/ReusableTextField";
 import { useState } from "react";
 import IFootprintData from "./Interface/Footprint.interface";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-import CaseTable from "../../Components/SupPanel/CaseTable/CaseTable";
 import SkuPanel from "../../Components/SupPanel/SkuPanel/SkuPanel";
-import Footprint from "../../Components/SupPanel/FootPrint/FootPrint";
-import Expiration from "../../Components/SupPanel/ExpPanel/ExpPanel";
-import ExpPallet from "../../Components/SupPanel/ExpPallett/ExpPallet";
-import Submition from "../../Components/SupPanel/SubmitPanel/SubmitPanel";
-import Shipment from "../../Components/SupPanel/Shipment/Shipment";
 import Catalogue from "../../Components/SupPanel/Catalogue/Catalogue";
-import ExpPanel from "../../Components/SupPanel/ExpPanel/ExpPanel";
+import Shipment from "../../Components/SupPanel/Shipment/Shipment";
 
 const schema = Yup.object().shape({
     nonConformingPallet: Yup.string().optional(),
@@ -145,31 +132,6 @@ const scrollbarStyles = {
     },
 };
 
-// Define your headers and data
-const headers = [
-    "Unit per Case",
-    "Layer",
-    "Tie",
-    "Case per Pallet",
-    "Pallet Weight",
-    "Total Cases",
-];
-
-const data = [
-    {
-        col1: "10",
-        col2: "3",
-        col3: "4",
-        col4: "12",
-        col5: "170.6539808 KG",
-        col6: (
-            <LockOpenIcon
-                sx={{ fontSize: 24, color: "secondary.main", textAlign: "center" }}
-            />
-        ),
-    },
-];
-
 function SupervisorControlPanel() {
     const [formValues, setFormValues] = useState({
         unitPerCase: "",
@@ -181,23 +143,11 @@ function SupervisorControlPanel() {
         nonConformingPallet: "",
     });
 
-    const {
-        getValues,
-        register,
-        handleSubmit,
-        formState: { errors },
-        setValue,
-        reset,
-    } = useForm<IFootprintData>({ resolver: yupResolver(schema) });
+    const [openShipment, setOpenShipment] = useState(false)
 
-    // Handler to update the state when the input changes
-    const handleChange =
-        (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            setFormValues({
-                ...formValues,
-                [name]: event.target.value,
-            });
-        };
+    const OpenShipment = ()=> {
+        setOpenShipment(prev=> !prev)
+    }
 
     return (
         <Box
@@ -279,6 +229,7 @@ function SupervisorControlPanel() {
                         My Queue
                     </Typography>
                     <Button
+                        onClick={OpenShipment}
                         variant="contained"
                         color="primary"
                         fullWidth
@@ -314,28 +265,22 @@ function SupervisorControlPanel() {
                     {/* Directly paste the content here */}
                     <Box sx={{ width: "100%" }}>
                         {/* 3rd column, 1st row */}
-                        <Catalogue/>
+                        <Catalogue 
+                            disabledOpen={openShipment}
+                            openShipment={OpenShipment}/>
 
                         {/* 3rd column, 2nd row */}
-                        <Shipment/>
+                        {
+                            openShipment && <Shipment/>
+                        }
 
-                        {/* 3rd column, 3rd row */}
-                        <SkuPanel/>
-
-                        {/* table*/}
-                        {/* <CaseTable/> */}
-                        {/* textfield for Footprint */}
-                        {/* <Footprint/> */}
-
-                        {/* Add Expiration Date, Non-Confirming and Textfield */}
-                        {/* <ExpPanel/> */}
-
-                        {/* Add Expiration Data form */}
-                        {/* <ExpPallet/> */}
-
-                        {/* receive and investigate button */}
-                        {/* <Submition/> */}
-
+                        {
+                            openShipment && 
+                            <Stack display={'flex'} sx={{gap:'5px'}}>
+                                <SkuPanel/>
+                                <SkuPanel/>
+                            </Stack>
+                        }
                     </Box>
                 </Box>
             </Box>

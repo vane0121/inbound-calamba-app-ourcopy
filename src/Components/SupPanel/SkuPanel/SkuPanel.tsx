@@ -186,13 +186,13 @@ export default function SkuPanel({}: Props) {
                     :
                     <Box
                         sx={{
-                            // width: { xs: "100%", sm: "100%", md: "25%", xl: "25%" },
+                            width: { xs:`${collapse ? '100%': '30%'}`, sm: "100%", md: "25%", xl: "25%" },
                             padding: 2,
-                            width: `${collapse ? '100%': '30%'}`,
-                            border:'solid 1px red'
+                            // width: `${collapse ? '100%': '30%'}`,
+                            border:'solid 1px #000'
                         }}
                         >
-                            <Box mt={1}>
+                            <Box mt={1} sx={{border:'solid 1px green'}}>
                                 <Box display="flex" justifyContent="space-between">
                                     <Typography
                                         sx={{
@@ -261,7 +261,7 @@ export default function SkuPanel({}: Props) {
                         flexDirection:'column',
                         justifyContent: 'flex-start',
                         alignContent:'flex-end',
-                        border:'solid 1px red',
+                        border:'solid 1px green',
                         height:'100%'
                     }}
                 >
@@ -280,7 +280,7 @@ export default function SkuPanel({}: Props) {
                             Show more
                         </Typography>
                         :
-                        <Box sx={{width:'100%',height:'80px'}}>
+                        <Box display={'flex'} sx={{ width:'100%',height:'80px',pY:'4px'}}>
                             <BarCode 
                                 codeValue="1234567890"
                                 width={2}   
