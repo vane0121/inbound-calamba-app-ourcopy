@@ -9,16 +9,13 @@ import {
 } from "@mui/material";
 import theme from "../../Theme/Theme";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { useState } from "react";
-import IFootprintData from "./Interface/Footprint.interface";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { createContext, useState } from "react";
 import * as Yup from "yup";
 
 import SkuPanel from "../../Components/SupPanel/SkuPanel/SkuPanel";
 import Catalogue from "../../Components/SupPanel/Catalogue/Catalogue";
 import Shipment from "../../Components/SupPanel/Shipment/Shipment";
+import DoorQueue from "../../Components/SupPanel/DoorQueue/DoorQueue";
 
 const schema = Yup.object().shape({
     nonConformingPallet: Yup.string().optional(),
@@ -132,7 +129,17 @@ const scrollbarStyles = {
     },
 };
 
+interface InboundData {
+    doorId: number
+    stagingArea: number
+    sealNumber: string
+    containerNumber: string
+}
+
 function SupervisorControlPanel() {
+
+    const [maxHeight, setMaxHiehgt] = useState('90vh')
+
     const [formValues, setFormValues] = useState({
         unitPerCase: "",
         layer: "",
@@ -145,16 +152,33 @@ function SupervisorControlPanel() {
 
     const [openShipment, setOpenShipment] = useState(false)
 
+    const InbContext = createContext<InboundData|null>(null)
+    const [inboundData, setInboundData] = useState<InboundData[]>([
+        {
+            doorId: 1, 
+            stagingArea: 1,
+            sealNumber: 'SEA-L875',
+            containerNumber: 'CONTAINER-ABC123'            
+        },
+        {
+            doorId: 2, 
+            stagingArea: 3,
+            sealNumber: 'SEA-L234',
+            containerNumber: 'CONTAINER-BCD234' 
+        }
+
+    ])
+
     const OpenShipment = ()=> {
         setOpenShipment(prev=> !prev)
     }
+
 
     return (
         <Box
             sx={{
                 padding: { xs: "8px", sm: "16px" },
-                minHeight: "100vh",
-                overflow: "hidden",
+                minHeight: "calc(100vh - 130px)",
                 backgroundColor: "#f5f5f5",
             }}
         >
@@ -181,14 +205,18 @@ function SupervisorControlPanel() {
                 <Box
                     sx={{
                         flex: { xs: "1 1 auto", sm: "1 1 auto", md: "1 1 15%" },
-                        maxHeight: "710px",
+                        maxHeight: {maxHeight},
                         overflowY: "auto",
                         boxSizing: "border-box",
                         ...scrollbarStyles,
                         flexGrow: 1,
+                        border:'solid 1px blue'
                     }}
                 >
-                    <Box sx={{ height: { xs: "100px", sm: "500px", md: "950px" } }}>
+                    <Box sx={{
+                        // height: { xs: "100px", sm: "500px", md: "950px" }
+                        border:'solid 1px red'
+                        }}>
                         <MyHubButton />
                     </Box>
                 </Box>
@@ -196,10 +224,12 @@ function SupervisorControlPanel() {
                 <Box
                     sx={{
                         flex: { xs: "1 1 auto", sm: "1 1 auto", md: "1 1 15%" },
-                        maxHeight: "710px",
+                        maxHeight: {maxHeight},
                         overflowY: "auto",
                         boxSizing: "border-box",
                         flexGrow: 1,
+                        padding: '5px',
+                        border:'solid 1px blue'
                     }}
                 >
                     <Typography
@@ -228,29 +258,15 @@ function SupervisorControlPanel() {
                         />
                         My Queue
                     </Typography>
-                    <Button
-                        onClick={OpenShipment}
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        sx={{
-                            textTransform: "none",
-                            fontWeight: 700,
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            fontSize: { xs: "16px", sm: "16px", md: "16px", xl: "24px" },
-                            borderRadius: "25px",
-                            boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
-                            backgroundColor: "white",
-                            color: "primary.main",
-                            padding: "8px 16px",
-                        }}
-                    >
-                        Go to Door 1
-                    </Button>
+                    <Stack display={'flex'} sx={{gap:'15px'}}>
+                    {/* {
+                        inboundData.map(items=> {
+                            return (
+                                <DoorQueue doorId={items.doorId} handleClick={OpenShipment}/>
+                            )
+                        })
+                    } */}
+                    </Stack>
                 </Box>
                 {/* 3rd column */}
                 <Box
@@ -265,18 +281,32 @@ function SupervisorControlPanel() {
                     {/* Directly paste the content here */}
                     <Box sx={{ width: "100%" }}>
                         {/* 3rd column, 1st row */}
-                        <Catalogue 
+                        <Catalogue
                             disabledOpen={openShipment}
                             openShipment={OpenShipment}/>
 
                         {/* 3rd column, 2nd row */}
                         {
-                            openShipment && <Shipment/>
+                            openShipment && 
+                            <InbContext.Provider value={{inboundData, }}>
+                                <Shipment/>
+                            </InbContext.Provider>
+
                         }
 
                         {
-                            openShipment && 
-                            <Stack display={'flex'} sx={{gap:'5px'}}>
+                            openShipment &&
+                            <Stack display={'flex'}
+                                sx={{
+                                    gap:'5px',
+                                    height: '55vh',
+                                    paddingX: '15px',
+                                    overflowY: 'auto',
+                                    border:'solid 0px violet'
+                                }}
+                                >
+                                <SkuPanel/>
+                                <SkuPanel/>
                                 <SkuPanel/>
                                 <SkuPanel/>
                             </Stack>

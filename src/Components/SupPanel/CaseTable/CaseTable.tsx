@@ -1,12 +1,5 @@
 import { Box, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import LockOpenIcon from "@mui/icons-material/LockOpen";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-
-const schema = Yup.object().shape({
-    nonConformingPallet: Yup.string().optional(),
-});
 
 export default function CaseTable() {
 
@@ -33,6 +26,18 @@ const data = [
             />
         ),
     },
+    {
+        col1: "10",
+        col2: "3",
+        col3: "4",
+        col4: "12",
+        col5: "170.6539808 KG",
+        col6: (
+            <LockOpenIcon
+                sx={{ fontSize: 24, color: "secondary.main", textAlign: "center" }}
+            />
+        ),
+    },
 ];
 
   return (
@@ -41,7 +46,6 @@ const data = [
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
         alignItems="center"
         sx={{
-            backgroundColor: "#f5f5f5",
             borderRadius: 2,
             padding:'2px',
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
@@ -55,11 +59,13 @@ const data = [
         >
             <Box mt={1}>
                 {/* Your content here */}
-                <TableContainer component={Paper}>
+                <TableContainer>
                     <Table>
                         <TableHead
+                            
                             sx={{
                                 backgroundColor: "primary.main",
+                                borderRadius: '10px'
                             }}
                         >
                             <TableRow>

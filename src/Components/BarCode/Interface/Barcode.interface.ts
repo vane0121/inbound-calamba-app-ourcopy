@@ -3,4 +3,5 @@ export interface IBarcode {
     height: number
     showDigits: boolean
     codeValue: string
+    alignBarcode: string
 }

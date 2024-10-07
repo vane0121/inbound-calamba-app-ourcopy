@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import theme from "../../../Theme/Theme";
-import BarCode from "../../BarCode/Barcode";
+import BarCode from "../../BarCode/BarCode";
 import TimeClock from "../../TimeClock/TimeClock";
 
 export default function Shipment() {
@@ -21,6 +21,7 @@ export default function Shipment() {
             sx={{
                 width: { xs: "100%", sm: "100%", md: "40%", xl: "40%" },
                 padding: 2,
+                border:'solid 0px red'
             }}
         >
             <Box mt={1}>
@@ -65,9 +66,10 @@ export default function Shipment() {
                 width: { xs: "100%", sm: "100%", md: "40%", xl: "40%" },
                 padding: 2,
                 mt: { xs: 2, sm: 0 },
+                border:'solid 0px red'
             }}
         >
-            <Typography
+            <Typography textAlign={'center'}
                 sx={{
                     color: theme.palette.primary.main,
                     fontWeight: theme.typography.fontWeightRegular,
@@ -75,7 +77,7 @@ export default function Shipment() {
             >
                 <strong>KAREILA MANAGEMENT CORPORATION</strong>
             </Typography>
-            <Typography
+            <Typography textAlign={'center'}
                 sx={{
                     color: theme.palette.primary.main,
                     fontWeight: theme.typography.fontWeightRegular,
@@ -83,7 +85,7 @@ export default function Shipment() {
             >
                 <strong>Pallet Configuration Report</strong>
             </Typography>
-            <Typography
+            <Typography textAlign={'center'}
                 sx={{
                     color: theme.palette.primary.main,
                     fontWeight: theme.typography.fontWeightRegular,
@@ -91,7 +93,7 @@ export default function Shipment() {
             >
                 <strong>DC Calamba</strong>
             </Typography>
-            <BarCode codeValue="878979798789" width={2} height={15} showDigits={false}/>
+            <BarCode codeValue="878979798789" width={2} height={10} showDigits={false} alignBarcode="center"/>
 
         </Box>
 
@@ -106,10 +108,10 @@ export default function Shipment() {
             <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "column", md: "column" }}
-                justifyContent="flex-start"
                 alignItems="center"
+                sx={{border:'solid 0px grey'}}
             >
-                <Typography
+                <Typography textAlign={'right'}
                     sx={{
                         color: theme.palette.text.secondary,
                         fontWeight: theme.typography.fontWeightRegular,
@@ -118,57 +120,60 @@ export default function Shipment() {
                 >
                     <strong>Date: 09/04/2024</strong>
                 </Typography>
-                <Box display={'flex'} flexDirection={'row'}
-                    sx={{border:'solid px red'}}
+                <Box display={'flex'} flexDirection={'row'} justifyItems={'flex-end'}
+                    sx={{
+                        width:'100%',
+                        border:'solid 0px blue'
+                    }}
                 >
-                    <Typography
+                    <Typography textAlign={'right'}
                         sx={{
                             color: theme.palette.text.secondary,
                             fontWeight: theme.typography.fontWeightRegular,
                             width: "100%",
                         }}
                     >
-                        <strong>Time:</strong>
+                        <strong>Time: </strong>
                     </Typography>
                     <TimeClock/>
                 </Box>
-                <Typography
+                <Box display={'flex'} flexDirection={'row'} justifyContent={'flex-end'} alignItems={'center'}    
                     sx={{
-                        color: theme.palette.text.secondary,
-                        fontWeight: theme.typography.fontWeightRegular,
-                        width: "100%",
-                    }}
-                >
-                    <strong>Mixed:</strong>
-                </Typography>
-                <Box
-                    mt={2}
-                    display="flex"
-                    justifyContent="space-between"
-                    gap={2}
-                    sx={{ width: "100%" }}
-                >
-                    <Box display="flex" justifyContent="space-between" sx={{ width: "100%" }}>
-                        <Button variant="contained" color="primary" fullWidth
-                            sx={{
-                                fontSize: { xs: "16px", sm: "20px", md: "20px" },
-                                fontWeight: 700, display: "flex",
-                                backgroundColor: "green",
-                            }}
-                        >
-                            Y
-                        </Button>
-                        <Box sx={{ width: "10px" }} />
-                        <Button variant="contained" color="primary" fullWidth
-                            sx={{
-                                fontSize: { xs: "16px", sm: "20px", md: "20px" },
-                                fontWeight: 700, display: "flex",
-                                backgroundColor: "gray",
-                            }}
-                        >
-                            N
-                        </Button>
-                    </Box>
+                        gap: '5px',
+                        width:'100%',
+                        border:'solid 0px red'
+                        }}
+                    >
+                    <Typography
+                        sx={{
+                            color: theme.palette.text.secondary,
+                            fontWeight: theme.typography.fontWeightRegular,
+                            border:'solid 0px red'
+                        }}
+                    >
+                        <strong>Mixed:</strong>
+                    </Typography>
+                    <Button variant="contained" color="primary" 
+                        sx={{
+                            fontSize: { xs: "16px", sm: "20px", md: "20px" },
+                            fontWeight: 700, display: "flex",
+                            backgroundColor: "green",
+                            width:{ xs: "100%", sm: "100%", md: "20%", xl: "20%" },
+                        }}
+                    >
+                        Y
+                    </Button>
+                    <Button variant="contained" color="primary"
+                    
+                        sx={{
+                            fontSize: { xs: "16px", sm: "20px", md: "20px" },
+                            fontWeight: 700, display: "flex",
+                            backgroundColor: "gray",
+                            width:{ xs: "100%", sm: "100%", md: "20%", xl: "20%" },
+                        }}
+                    >
+                        N
+                    </Button>
                 </Box>
             </Box>
         </Box>

@@ -22,14 +22,16 @@ const TimeClock: React.FC = () => {
   const formattedTime = `${(hours % 12 || 12).toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}${isAM ? 'AM' : 'PM'}`;
   
   return (
-    <Typography
+    <Typography textAlign={'right'}
     sx={{
         color: theme.palette.text.secondary,
         fontWeight: theme.typography.fontWeightRegular,
-        width: "100%",
+        padding: 0,
+        margin: 0,
+        border: 'solid 0px red'
     }}
     >
-      <strong>{formattedTime}</strong>
+      <strong>&nbsp;{formattedTime}</strong>
     </Typography>
   );
 };

@@ -49,7 +49,7 @@ export default function ExpPallet() {
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
         alignItems="center"
         sx={{
-            backgroundColor: "#f5f5f5",
+            backgroundColor: "none",
             padding: 2,
             borderRadius: 2,
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",

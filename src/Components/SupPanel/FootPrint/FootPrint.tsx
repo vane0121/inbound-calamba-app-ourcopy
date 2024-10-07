@@ -46,7 +46,7 @@ export default function Footprint() {
         flexDirection={{ xs: "column", sm: "column", md: "row" }}
         alignItems="center"
         sx={{
-            backgroundColor: "#f5f5f5",
+            backgroundColor: "none",
             // boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
             border:'solid 0px #000',
             paddingY: '2px',

@@ -10,7 +10,7 @@ export interface ICatalogue {
     openGallery?: ()=> void
 }
 
-export default function Catalogue({disabledOpen, openShipment, openGallery}: ICatalogue) {
+export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
 
     const readytoOpenLabel = disabledOpen ? "Opened" : "Ready to Open"
   return (
@@ -118,7 +118,7 @@ export default function Catalogue({disabledOpen, openShipment, openGallery}: ICa
             }}
         >
             <Button
-                disabled={disabledOpen}
+                // disabled={disabledOpen}
                 onClick={openShipment}
                 variant="contained"
                 sx={{
