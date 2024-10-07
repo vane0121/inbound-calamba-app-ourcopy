@@ -129,7 +129,7 @@ const scrollbarStyles = {
     },
 };
 
-interface InboundData {
+export interface InboundData {
     doorId: number
     stagingArea: number
     sealNumber: string
@@ -152,7 +152,6 @@ function SupervisorControlPanel() {
 
     const [openShipment, setOpenShipment] = useState(false)
 
-    const InbContext = createContext<InboundData|null>(null)
     const [inboundData, setInboundData] = useState<InboundData[]>([
         {
             doorId: 1, 
@@ -162,12 +161,32 @@ function SupervisorControlPanel() {
         },
         {
             doorId: 2, 
-            stagingArea: 3,
+            stagingArea: 2,
             sealNumber: 'SEA-L234',
             containerNumber: 'CONTAINER-BCD234' 
         }
 
     ])
+
+    const [inbData, setInbData] = useState<InboundData>({
+        doorId: 0, 
+        stagingArea: 0,
+        sealNumber: '',
+        containerNumber: '' 
+    })
+
+    const setDoorData =(doorId:number)=> {
+        const req = inboundData.filter(items=> items.doorId == doorId)
+
+        console.log(req[0].doorId, 'test')
+        setInbData({
+            ...inbData,
+            doorId: req[0].doorId,
+            stagingArea: req[0].stagingArea,
+            sealNumber: req[0].sealNumber,
+            containerNumber: req[0].containerNumber
+        })
+    }
 
     const OpenShipment = ()=> {
         setOpenShipment(prev=> !prev)
@@ -210,12 +229,12 @@ function SupervisorControlPanel() {
                         boxSizing: "border-box",
                         ...scrollbarStyles,
                         flexGrow: 1,
-                        border:'solid 1px blue'
+                        border:'solid 0px blue'
                     }}
                 >
                     <Box sx={{
                         // height: { xs: "100px", sm: "500px", md: "950px" }
-                        border:'solid 1px red'
+                        border:'solid 0px red'
                         }}>
                         <MyHubButton />
                     </Box>
@@ -229,7 +248,7 @@ function SupervisorControlPanel() {
                         boxSizing: "border-box",
                         flexGrow: 1,
                         padding: '5px',
-                        border:'solid 1px blue'
+                        border:'solid 0px blue'
                     }}
                 >
                     <Typography
@@ -259,13 +278,16 @@ function SupervisorControlPanel() {
                         My Queue
                     </Typography>
                     <Stack display={'flex'} sx={{gap:'15px'}}>
-                    {/* {
+                    {
                         inboundData.map(items=> {
                             return (
-                                <DoorQueue doorId={items.doorId} handleClick={OpenShipment}/>
+                                <DoorQueue doorId={items.doorId} 
+                                handleClick={()=> {
+                                    setDoorData(items.doorId)
+                                }}/>
                             )
                         })
-                    } */}
+                    }
                     </Stack>
                 </Box>
                 {/* 3rd column */}
@@ -282,15 +304,14 @@ function SupervisorControlPanel() {
                     <Box sx={{ width: "100%" }}>
                         {/* 3rd column, 1st row */}
                         <Catalogue
+                            inboundData={inbData}
                             disabledOpen={openShipment}
                             openShipment={OpenShipment}/>
 
                         {/* 3rd column, 2nd row */}
                         {
                             openShipment && 
-                            <InbContext.Provider value={{inboundData, }}>
                                 <Shipment/>
-                            </InbContext.Provider>
 
                         }
 
@@ -300,7 +321,7 @@ function SupervisorControlPanel() {
                                 sx={{
                                     gap:'5px',
                                     height: '55vh',
-                                    paddingX: '15px',
+                                    paddingRight: '15px',
                                     overflowY: 'auto',
                                     border:'solid 0px violet'
                                 }}

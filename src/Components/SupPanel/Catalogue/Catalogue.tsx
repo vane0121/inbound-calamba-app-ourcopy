@@ -3,14 +3,22 @@ import theme from '../../../Theme/Theme'
 import { PhotoCamera } from '@mui/icons-material'
 import GalleriesLogo from "../../../assets/GalleriesIcon.png";
 
+export interface InboundData {
+    doorId: number
+    stagingArea: number
+    sealNumber: string
+    containerNumber: string
+}
+
 
 export interface ICatalogue {
     disabledOpen: boolean
     openShipment: ()=> void
     openGallery?: ()=> void
+    inboundData: InboundData
 }
 
-export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
+export default function Catalogue({disabledOpen, openShipment, inboundData}: ICatalogue) {
 
     const readytoOpenLabel = disabledOpen ? "Opened" : "Ready to Open"
   return (
@@ -22,13 +30,14 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
             backgroundColor: "#f5f5f5",
             padding: 2,
             borderRadius: 2,
-            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+            // boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         }}
     >
         <Box
             sx={{
-                width: { xs: "100%", sm: "100%", md: "30%", xl: "50%" },
+                width: { xs: "100%", sm: "100%", md: "50%", xl: "50%" },
                 padding: 2,
+                border:'solid 0px red'
             }}
         >
             <Box mt={1}>
@@ -48,7 +57,7 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
                             fontWeight: theme.typography.fontWeightRegular,
                         }}
                     >
-                        <strong>1</strong>
+                        <strong>{inboundData.doorId}</strong>
                     </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
@@ -66,7 +75,7 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
                             fontWeight: theme.typography.fontWeightRegular,
                         }}
                     >
-                        <strong>1</strong>
+                        <strong>{inboundData.stagingArea}</strong>
                     </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
@@ -76,7 +85,7 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
                             fontWeight: theme.typography.fontWeightRegular,
                         }}
                     >
-                        <strong>Container Number:</strong>
+                        <strong>Container No:</strong>
                     </Typography>
 
                     <Typography
@@ -85,7 +94,7 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
                             fontWeight: theme.typography.fontWeightRegular,
                         }}
                     >
-                        <strong>NQS619</strong>
+                        <strong>{inboundData.containerNumber}</strong>
                     </Typography>
                 </Box>
                 <Box display="flex" justifyContent="space-between">
@@ -104,7 +113,7 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
                             fontWeight: theme.typography.fontWeightRegular,
                         }}
                     >
-                        <strong>SEA-L875</strong>
+                        <strong>{inboundData.sealNumber}</strong>
                     </Typography>
                 </Box>
             </Box>
@@ -112,9 +121,10 @@ export default function Catalogue({disabledOpen, openShipment}: ICatalogue) {
         {/* button Opened and Upload Photos */}
         <Box
             sx={{
-                width: { xs: "100%", sm: "100%", md: "60%", xl: "40%" },
+                width: { xs: "100%", sm: "100%", md: "75%", xl: "75%" },
                 padding: 2,
                 mt: { xs: 2, sm: 0 },
+                border:'solid 0px red'
             }}
         >
             <Button
