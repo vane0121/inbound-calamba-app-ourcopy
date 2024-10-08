@@ -6,7 +6,7 @@ export default function SkuScan() {
     <>
         <Box
             sx={{
-                width: { xs: "100%", sm: "100%", md: "25%", xl: "25%" },
+                width: { xs: "100%", sm: "100%", md: "100%", xl: "50%" },
                 padding: 2,
                 display: "flex",
                 justifyContent: "center",
@@ -24,7 +24,7 @@ export default function SkuScan() {
                 p={1}
                 borderRadius={4}
                 sx={{
-                        width:{ sm: "100%", xl: "25%" },
+                        width:{ sm: "100%", xl: "50%" },
                         border:'solid 0px green'
                 }}
             >

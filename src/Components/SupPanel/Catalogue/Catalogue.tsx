@@ -28,15 +28,14 @@ export default function Catalogue({disabledOpen, openShipment, inboundData}: ICa
         alignItems="center"
         sx={{
             backgroundColor: "#f5f5f5",
-            padding: 2,
             borderRadius: 2,
+            border:'solid 0px red'
             // boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
         }}
     >
         <Box
             sx={{
                 width: { xs: "100%", sm: "100%", md: "50%", xl: "50%" },
-                padding: 2,
                 border:'solid 0px red'
             }}
         >
@@ -121,7 +120,7 @@ export default function Catalogue({disabledOpen, openShipment, inboundData}: ICa
         {/* button Opened and Upload Photos */}
         <Box
             sx={{
-                width: { xs: "100%", sm: "100%", md: "75%", xl: "75%" },
+                width: { xs: "100%", sm: "100%", md: "50%", xl: "50%" },
                 padding: 2,
                 mt: { xs: 2, sm: 0 },
                 border:'solid 0px red'
@@ -172,6 +171,7 @@ export default function Catalogue({disabledOpen, openShipment, inboundData}: ICa
                 width: { xs: "100%", sm: "100%", md: "10%", xl: "10%" },
                 padding: 2,
                 mt: { xs: 2, sm: 0 },
+                border:'solid 0px red'
             }}
         >
             <Box textAlign="center">

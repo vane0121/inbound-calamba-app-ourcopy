@@ -71,7 +71,6 @@ export default function SkuPanel() {
                     <Footprint/>
                     <ExpPanel/>
                     <ExpPallet/>
-                    
                 </>
             }
         </Stack>

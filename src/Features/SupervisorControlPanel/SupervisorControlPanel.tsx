@@ -9,13 +9,15 @@ import {
 } from "@mui/material";
 import theme from "../../Theme/Theme";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import * as Yup from "yup";
 
 import SkuPanel from "../../Components/SupPanel/SkuPanel/SkuPanel";
 import Catalogue from "../../Components/SupPanel/Catalogue/Catalogue";
 import Shipment from "../../Components/SupPanel/Shipment/Shipment";
 import DoorQueue from "../../Components/SupPanel/DoorQueue/DoorQueue";
+import Galleries from "../../Components/Galleries";
+import { UseInbound, useInbound } from "../../Context/InboundContext";
 
 const schema = Yup.object().shape({
     nonConformingPallet: Yup.string().optional(),
@@ -138,7 +140,8 @@ export interface InboundData {
 
 function SupervisorControlPanel() {
 
-    const [maxHeight, setMaxHiehgt] = useState('90vh')
+    const [maxHeight] = useState('90vh')
+
 
     const [formValues, setFormValues] = useState({
         unitPerCase: "",
@@ -194,6 +197,7 @@ function SupervisorControlPanel() {
 
 
     return (
+        <>
         <Box
             sx={{
                 padding: { xs: "8px", sm: "16px" },
@@ -301,41 +305,46 @@ function SupervisorControlPanel() {
                     }}
                 >
                     {/* Directly paste the content here */}
-                    <Box sx={{ width: "100%" }}>
-                        {/* 3rd column, 1st row */}
-                        <Catalogue
-                            inboundData={inbData}
-                            disabledOpen={openShipment}
-                            openShipment={OpenShipment}/>
+                    <UseInbound>
+                        <Box sx={{ width: "100%" }}>
+                            {/* 3rd column, 1st row */}
+                            <Catalogue
+                                inboundData={inbData}
+                                disabledOpen={openShipment}
+                                openShipment={OpenShipment}/>
 
-                        {/* 3rd column, 2nd row */}
-                        {
-                            openShipment && 
-                                <Shipment/>
+                            {/* 3rd column, 2nd row */}
+                            {
+                                openShipment && 
+                                    <Shipment/>
 
-                        }
+                            }
 
-                        {
-                            openShipment &&
-                            <Stack display={'flex'}
-                                sx={{
-                                    gap:'5px',
-                                    height: '55vh',
-                                    paddingRight: '15px',
-                                    overflowY: 'auto',
-                                    border:'solid 0px violet'
-                                }}
-                                >
-                                <SkuPanel/>
-                                <SkuPanel/>
-                                <SkuPanel/>
-                                <SkuPanel/>
-                            </Stack>
-                        }
-                    </Box>
+                            {
+                                openShipment &&
+                                <Stack display={'flex'}
+                                    sx={{
+                                        gap:'5px',
+                                        height: '55vh',
+                                        paddingRight: '15px',
+                                        overflowY: 'auto',
+                                        border:'solid 0px violet'
+                                    }}
+                                    >
+                                    <SkuPanel/>
+                                    <SkuPanel/>
+                                    <SkuPanel/>
+                                    <SkuPanel/>
+                                </Stack>
+                            }
+                        </Box>
+                    </UseInbound>
                 </Box>
             </Box>
         </Box>
+        <Galleries title={'Upload Photos'} open={true}/>
+
+    </>
     );
 }
 

@@ -11,16 +11,14 @@ export default function Shipment() {
         alignItems="center"
         sx={{
             backgroundColor: "#f5f5f5",
-            padding: 2,
             borderRadius: 2,
+            border:'solid 0px red'
             // boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-            mt: 2,
         }}
     >
         <Box
             sx={{
                 width: { xs: "100%", sm: "100%", md: "40%", xl: "40%" },
-                padding: 2,
                 border:'solid 0px red'
             }}
         >
