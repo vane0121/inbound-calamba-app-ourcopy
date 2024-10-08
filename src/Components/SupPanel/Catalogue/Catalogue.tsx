@@ -2,6 +2,8 @@ import { Box, Button, Typography } from '@mui/material'
 import theme from '../../../Theme/Theme'
 import { PhotoCamera } from '@mui/icons-material'
 import GalleriesLogo from "../../../assets/GalleriesIcon.png";
+import { InboundContext } from '../../../Features/SupervisorControlPanel/SupervisorControlPanel';
+import { useContext } from 'react';
 
 export interface InboundData {
     doorId: number
@@ -19,7 +21,19 @@ export interface ICatalogue {
 }
 
 export default function Catalogue({disabledOpen, openShipment, inboundData}: ICatalogue) {
+    const context = useContext(InboundContext)
 
+    if (!context) {
+        throw new Error("ChildComponent must be used within an ExDataProvider");
+    }
+
+    const {takePhoto} = context
+
+    const UploadPhoto =()=> {
+        const newValue = true
+        takePhoto(newValue)
+    }
+    
     const readytoOpenLabel = disabledOpen ? "Opened" : "Ready to Open"
   return (
     <Box
@@ -160,6 +174,7 @@ export default function Catalogue({disabledOpen, openShipment, inboundData}: ICa
                         boxShadow: "0px 0px 20px rgba(0, 0, 0, 0.5)",
                         width: { xs: "100%", sm: "100%", md: "50%", xl: "50%" },
                     }}
+                    onClick={UploadPhoto}
                 >
                     Upload Photos
                 </Button>

@@ -7,7 +7,7 @@ interface IReusableModalProps extends DialogProps {
   children: ReactNode;
   onClose: () => void;
   onSave?: () => void;
-  mode: Mode;
+  mode?: Mode;
   disable?: boolean;
   open: boolean;
   md?: number;

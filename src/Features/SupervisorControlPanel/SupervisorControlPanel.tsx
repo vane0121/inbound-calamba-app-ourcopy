@@ -9,19 +9,20 @@ import {
 } from "@mui/material";
 import theme from "../../Theme/Theme";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import * as Yup from "yup";
 
 import SkuPanel from "../../Components/SupPanel/SkuPanel/SkuPanel";
 import Catalogue from "../../Components/SupPanel/Catalogue/Catalogue";
 import Shipment from "../../Components/SupPanel/Shipment/Shipment";
 import DoorQueue from "../../Components/SupPanel/DoorQueue/DoorQueue";
-import Galleries from "../../Components/Galleries";
-import { UseInbound, useInbound } from "../../Context/InboundContext";
+import ReusableModal from "../../Components/ReusableModal/ReusableModal";
 
 const schema = Yup.object().shape({
     nonConformingPallet: Yup.string().optional(),
 });
+
+
 
 const MyHubButton: React.FC = () => {
     const handleMyHubClick = () => {
@@ -138,10 +139,26 @@ export interface InboundData {
     containerNumber: string
 }
 
+export interface ExData {
+    doorId: number
+    stagingArea: number
+    sealNumber: string
+    containerNumber: string
+    takePhoto:(v:boolean)=> void
+}
+
+
+export const InboundContext = createContext<ExData|null>(null);
+
 function SupervisorControlPanel() {
 
     const [maxHeight] = useState('90vh')
-
+    const [takePhotoOpen, setTakePhotoOpen] = useState(false)
+    
+    const takePhoto =(newValue: boolean)=> {
+        setTakePhotoOpen(newValue)
+        console.log(newValue)
+    }
 
     const [formValues, setFormValues] = useState({
         unitPerCase: "",
@@ -152,6 +169,11 @@ function SupervisorControlPanel() {
         totalCases: "",
         nonConformingPallet: "",
     });
+
+    const [doorId, setDoorId] = useState(1)
+    const [stagingArea, setStagingArea] = useState(1)
+    const [sealNumber, setSealNumber] = useState('SEA-L875')
+    const [containerNumber, setContainerNumber] = useState('CONTAINER-ABC123')
 
     const [openShipment, setOpenShipment] = useState(false)
 
@@ -194,7 +216,6 @@ function SupervisorControlPanel() {
     const OpenShipment = ()=> {
         setOpenShipment(prev=> !prev)
     }
-
 
     return (
         <>
@@ -292,6 +313,9 @@ function SupervisorControlPanel() {
                             )
                         })
                     }
+                    {
+                     takePhotoOpen && <Button>testShow</Button>
+                    }
                     </Stack>
                 </Box>
                 {/* 3rd column */}
@@ -305,7 +329,7 @@ function SupervisorControlPanel() {
                     }}
                 >
                     {/* Directly paste the content here */}
-                    <UseInbound>
+                    <InboundContext.Provider value={{ takePhoto, doorId, stagingArea, sealNumber, containerNumber }}>
                         <Box sx={{ width: "100%" }}>
                             {/* 3rd column, 1st row */}
                             <Catalogue
@@ -338,12 +362,18 @@ function SupervisorControlPanel() {
                                 </Stack>
                             }
                         </Box>
-                    </UseInbound>
+                    </InboundContext.Provider>
                 </Box>
             </Box>
         </Box>
-        <Galleries title={'Upload Photos'} open={true}/>
-
+        <ReusableModal 
+            xl={1500}
+            title={'Alert'}
+            open={takePhotoOpen}
+            onClose={()=> setTakePhotoOpen(false)}
+        >
+            <Button>Hayahayyyy!!!!</Button>
+        </ReusableModal>
     </>
     );
 }
