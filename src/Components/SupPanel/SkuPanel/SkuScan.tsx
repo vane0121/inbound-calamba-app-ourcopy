@@ -1,10 +1,7 @@
-import { Box, Button, IconButton, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import QrCodeScannerIcon from "@mui/icons-material/QrCodeScanner";
 import { useContext, useState } from "react";
 import { InboundContext } from "../../../Features/SupervisorControlPanel/SupervisorControlPanel";
-import Galleries from "../../Galleries";
-import theme from "../../../Theme/Theme";
-import { red } from "@mui/material/colors";
 
 export default function SkuScan() {
 const context = useContext(InboundContext)
@@ -21,6 +18,7 @@ const call=()=>{
     const newValue = true//!isPhotoOpen
     takePhoto(newValue)
     setIsPhotoOpen(newValue)
+    console.log(isPhotoOpen, 'setIsPhotoOpen')
 }
 
   return (
